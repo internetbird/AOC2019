@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,8 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AOC2019.Tests\**" />
+    <EmbeddedResource Remove="AOC2019.Tests\**" />
+    <None Remove="AOC2019.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="InputFiles\" />
-    <Folder Include="PuzzleSolvers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="InputFiles\day1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
