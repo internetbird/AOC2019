@@ -13,10 +13,14 @@
 
   <ItemGroup>
     <Folder Include="InputFiles\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="InputFiles\day1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="InputFiles\day2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
