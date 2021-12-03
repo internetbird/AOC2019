@@ -15,23 +15,42 @@ namespace AOC2019.PuzzleSolvers
 
             int[] intCode = inputText.Split(',').Select(int.Parse).ToArray();
 
-            //Initial change
-            intCode[1] = 12;
-            intCode[2] = 2;
-
             var computer = new IntcodeComputer();
 
-            computer.LoadProgram(intCode);
+            computer.LoadProgram(intCode, 12, 2);
             computer.RunProgram();
 
-            int answer = computer.GetMemoryPosition(0);
+            int answer = computer.GetOutput();
 
             return answer.ToString();
         }
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            string inputText = InputFilesHelper.GetInputFileText("day2.txt");
+
+            int[] intCode = inputText.Split(',').Select(int.Parse).ToArray();
+
+            const int expectedOutput = 19690720;
+
+            var computer = new IntcodeComputer();
+
+            for(int i = 0; i < 100; i++)
+            {
+                for(int j = 0; j < 100; j++)
+                {
+                    computer.LoadProgram(intCode, i, j);
+                    computer.RunProgram();
+
+                    int output = computer.GetOutput();
+                    if (output == expectedOutput)
+                    {
+                        return ((100 * i) + j).ToString();
+                    }
+                }
+            }
+
+            return String.Empty;
         }
     }
 }
