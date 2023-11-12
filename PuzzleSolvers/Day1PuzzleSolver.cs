@@ -1,5 +1,5 @@
-﻿using AOC2019.Calculators;
-using AOC2019.Utility;
+﻿using AOC;
+using AOC2019.Calculators;
 using System;
 using System.Collections.Generic;
 using System.Text;

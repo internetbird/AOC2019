@@ -1,5 +1,5 @@
-﻿using AOC2019.Logic;
-using AOC2019.Utility;
+﻿using AOC;
+using AOC2019.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using AOC2019.PuzzleSolvers;
+﻿using AOC;
+using AOC2019.PuzzleSolvers;
 using System;
 
 namespace AOC2019
@@ -7,7 +8,7 @@ namespace AOC2019
     {
         static void Main(string[] args)
         {
-            IPuzzleSolver solver = new Day2PuzzleSolver();
+            IPuzzleSolver solver = new Day3PuzzleSolver();
 
             var solution = solver.SolvePuzzlePart2();
             Console.WriteLine($"The solution to the puzzle is: {solution}");
