@@ -39,7 +39,18 @@ namespace AOC2019.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            int numOfValidPasswords = 0;
+
+            for (int i = 172930; i <= 683082; i++)
+            {
+                if (IsNonDecreasingDigits(i) && RegexRobin.HasExactlyTwoMatchingConsecutiveCharacters(i.ToString()))
+                {
+                    numOfValidPasswords++;
+                }
+            }
+
+            return numOfValidPasswords.ToString();
         }
+
     }
 }
