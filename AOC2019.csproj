@@ -7,13 +7,15 @@
 
   <ItemGroup>
     <Compile Remove="AOC2019.Tests\**" />
+    <Compile Remove="Models\**" />
     <EmbeddedResource Remove="AOC2019.Tests\**" />
+    <EmbeddedResource Remove="Models\**" />
     <None Remove="AOC2019.Tests\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="InputFiles\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="InputFiles\day3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="InputFiles\day5.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
