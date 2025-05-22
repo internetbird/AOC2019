@@ -9,8 +9,8 @@ namespace AOC2019.Logic
     public class IntcodeComputerCommandParameter
     {
         public int Value { get; set; }
-        public int Mode { get; set; }
-        public IntcodeComputerCommandParameter(int value, int mode)
+        public IntcodeComputerCommandParameterMode Mode { get; set; }
+        public IntcodeComputerCommandParameter(int value, IntcodeComputerCommandParameterMode mode)
         {
             Value = value;
             Mode = mode;

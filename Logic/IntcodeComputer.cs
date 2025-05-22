@@ -11,16 +11,22 @@ namespace AOC2019.Logic
         private const int MemorySize = 1000;
         private int _PC;
 
-        public void LoadProgram(int[] program, int noun, int verb)
+        public void LoadProgram(int[] program, int? noun = null, int? verb = null)
         {
 
             _memory = new int[MemorySize];
 
             program.CopyTo(_memory, 0);
 
-            _memory[1] = noun;
-            _memory[2] = verb;  
+            if (noun != null)
+            {
+                _memory[1] = noun.Value;
+            }
 
+            if(verb != null)
+            {
+                _memory[2] = verb.Value;
+            }
         }
 
         public void RunProgram()
@@ -30,10 +36,7 @@ namespace AOC2019.Logic
 
             while (opCode != 99 && (_PC < _memory.Length - 1))
             {
-
-
                 IntcodeComputerCommand command = GetNextCommand();
-
                 ExecuteCommand(command);
                 _PC = _PC + 4;
             }
@@ -46,30 +49,30 @@ namespace AOC2019.Logic
            int opCode = opCodeValue % 100;
 
            var command = new IntcodeComputerCommand();
-            command.OpCode = opCode;
+            command.OpCode = (IntcodeCompunterCommandOpCode)opCode;
 
 
-            switch(opCode)
+            switch(command.OpCode)
             {
-                case 1: // Add
-                case 2: // Multiply
+                case IntcodeCompunterCommandOpCode.Add:
+                case IntcodeCompunterCommandOpCode.Multiply: 
                     command.Parameters = new List<IntcodeComputerCommandParameter>
                     {
-                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (opCodeValue/100) % 10),
-                        new IntcodeComputerCommandParameter(_memory[_PC + 2], (opCodeValue/1000) % 10),
-                        new IntcodeComputerCommandParameter(_memory[_PC + 3], (opCodeValue/10000) % 10)
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 2], (IntcodeComputerCommandParameterMode)((opCodeValue/1000) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 3],  (IntcodeComputerCommandParameterMode)((opCodeValue/10000) % 10))
                     };
                     break;
-                case 3: // Input
+                case IntcodeCompunterCommandOpCode.Input: 
                     command.Parameters = new List<IntcodeComputerCommandParameter>
                     {
-                        new IntcodeComputerCommandParameter(_memory[_PC + 1], _memory[_PC + 1] % 1000)
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], IntcodeComputerCommandParameterMode.Immediate)
                     };
                     break;
-                case 4: // Output
+                case IntcodeCompunterCommandOpCode.Output: 
                     command.Parameters = new List<IntcodeComputerCommandParameter>
                     {
-                        new IntcodeComputerCommandParameter(_memory[_PC + 1], _memory[_PC + 1] % 1000)
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], IntcodeComputerCommandParameterMode.Immediate)
                     };
                     break;
             }
@@ -82,31 +85,45 @@ namespace AOC2019.Logic
 
         private void ExecuteCommand(IntcodeComputerCommand command)
         {
-           
-        }
+            int param1Value, param2Value;
 
-
-        private void ExecuteCommand(int opCode, int param1, int param2, int param3)
-        {
-            int value1 = _memory[param1];
-            int value2 = _memory[param2];
-
-            switch(opCode)
+            switch (command.OpCode)
             {
-                case 1:// Add
-                    _memory[param3] = value1 + value2;
+                case IntcodeCompunterCommandOpCode.Add:
+
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    param2Value = GetParamValue(command.Parameters[1]);
+                    _memory[command.Parameters[2].Value] = param1Value + param1Value;
                     break;
-                case 2: //Multiply
-                    _memory[param3] = value1 * value2;
+                case IntcodeCompunterCommandOpCode.Multiply:
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    param2Value = GetParamValue(command.Parameters[1]);
+                    _memory[command.Parameters[2].Value] = param1Value * param2Value;
                     break;
-                case 3: // Input
+                case IntcodeCompunterCommandOpCode.Input:
                     Console.WriteLine("Input: ");
                     string input = Console.ReadLine();
-                    _memory[param1] = int.Parse(input);
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    _memory[param1Value] = int.Parse(input);
+                    
                     break;
-                case 4: // Output
-                    Console.WriteLine($"Output: {_memory[param1]}");
+                case IntcodeCompunterCommandOpCode.Output:
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    Console.WriteLine($"Output: {_memory[param1Value]}");
                     break;
+            }
+
+        }
+
+        private int GetParamValue(IntcodeComputerCommandParameter parameter)
+        {
+            if (parameter.Mode == IntcodeComputerCommandParameterMode.Immediate)
+            {
+                return parameter.Value;
+            }
+            else
+            {
+                return _memory[parameter.Value];
             }
         }
 

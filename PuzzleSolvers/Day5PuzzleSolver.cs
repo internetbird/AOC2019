@@ -14,12 +14,11 @@ namespace AOC2019.PuzzleSolvers
         {
 
             string inputText = InputFilesHelper.GetInputFileText("day5.txt");
-
             int[] intCode = inputText.Split(',').Select(int.Parse).ToArray();
 
-
             var computer = new IntcodeComputer();
-            computer.LoadProgram(intCode, 1,1);
+            computer.LoadProgram(intCode);
+            computer.RunProgram();
 
             return string.Empty ;
         }

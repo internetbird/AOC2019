@@ -10,10 +10,10 @@ namespace AOC2019.Logic
     {
         public IntcodeComputerCommand() { }
 
-        public int OpCode { get; set; }
+        public IntcodeCompunterCommandOpCode OpCode { get; set; }
 
         public List<IntcodeComputerCommandParameter> Parameters { get; set; } 
-        public IntcodeComputerCommand(int opCode, List<IntcodeComputerCommandParameter> parameters)
+        public IntcodeComputerCommand(IntcodeCompunterCommandOpCode opCode, List<IntcodeComputerCommandParameter> parameters)
         {
             OpCode = opCode;
             Parameters = parameters;
