@@ -32,13 +32,13 @@ namespace AOC2019.Logic
         public void RunProgram()
         {
             _PC = 0;
-            int opCode = _memory[0];
 
-            while (opCode != 99 && (_PC < _memory.Length - 1))
+            IntcodeComputerCommand command = null;
+
+            while (command?.OpCode != IntcodeCompunterCommandOpCode.Halt && (_PC < _memory.Length - 1))
             {
-                IntcodeComputerCommand command = GetNextCommand();
+                command = GetNextCommand();
                 ExecuteCommand(command);
-                _PC = _PC + 4;
             }
         }
 
@@ -60,7 +60,7 @@ namespace AOC2019.Logic
                     {
                         new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10)),
                         new IntcodeComputerCommandParameter(_memory[_PC + 2], (IntcodeComputerCommandParameterMode)((opCodeValue/1000) % 10)),
-                        new IntcodeComputerCommandParameter(_memory[_PC + 3],  (IntcodeComputerCommandParameterMode)((opCodeValue/10000) % 10))
+                        new IntcodeComputerCommandParameter(_memory[_PC + 3],  IntcodeComputerCommandParameterMode.Position)
                     };
                     break;
                 case IntcodeCompunterCommandOpCode.Input: 
@@ -94,22 +94,26 @@ namespace AOC2019.Logic
                     param1Value = GetParamValue(command.Parameters[0]);
                     param2Value = GetParamValue(command.Parameters[1]);
                     _memory[command.Parameters[2].Value] = param1Value + param1Value;
+                    _PC += 4;
                     break;
                 case IntcodeCompunterCommandOpCode.Multiply:
                     param1Value = GetParamValue(command.Parameters[0]);
                     param2Value = GetParamValue(command.Parameters[1]);
                     _memory[command.Parameters[2].Value] = param1Value * param2Value;
+                    _PC += 4;
                     break;
                 case IntcodeCompunterCommandOpCode.Input:
                     Console.WriteLine("Input: ");
                     string input = Console.ReadLine();
                     param1Value = GetParamValue(command.Parameters[0]);
                     _memory[param1Value] = int.Parse(input);
-                    
+                    _PC += 2;
+
                     break;
                 case IntcodeCompunterCommandOpCode.Output:
                     param1Value = GetParamValue(command.Parameters[0]);
                     Console.WriteLine($"Output: {_memory[param1Value]}");
+                    _PC += 2;
                     break;
             }
 

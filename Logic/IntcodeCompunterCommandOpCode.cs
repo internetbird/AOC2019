@@ -13,5 +13,6 @@ namespace AOC2019.Logic
         Multiply = 2,
         Input = 3,
         Output = 4,
+        Halt = 99
     }
 }
