@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BirdLib;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -72,7 +74,7 @@ namespace AOC2019.Logic
                 case IntcodeCompunterCommandOpCode.Output: 
                     command.Parameters = new List<IntcodeComputerCommandParameter>
                     {
-                        new IntcodeComputerCommandParameter(_memory[_PC + 1], IntcodeComputerCommandParameterMode.Immediate)
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10))
                     };
                     break;
             }
@@ -93,7 +95,7 @@ namespace AOC2019.Logic
 
                     param1Value = GetParamValue(command.Parameters[0]);
                     param2Value = GetParamValue(command.Parameters[1]);
-                    _memory[command.Parameters[2].Value] = param1Value + param1Value;
+                    _memory[command.Parameters[2].Value] = param1Value + param2Value;
                     _PC += 4;
                     break;
                 case IntcodeCompunterCommandOpCode.Multiply:
@@ -111,12 +113,20 @@ namespace AOC2019.Logic
 
                     break;
                 case IntcodeCompunterCommandOpCode.Output:
+
                     param1Value = GetParamValue(command.Parameters[0]);
-                    Console.WriteLine($"Output: {_memory[param1Value]}");
+                    Console.WriteLine($"Output: {param1Value}");
+                  
                     _PC += 2;
                     break;
             }
 
+        }
+
+        private void PrintMemory()
+        {
+            Console.WriteLine($"Memory content: {string.Join(',', _memory)}");
+            Console.ReadLine();
         }
 
         private int GetParamValue(IntcodeComputerCommandParameter parameter)
