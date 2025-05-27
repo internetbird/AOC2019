@@ -8,7 +8,7 @@ namespace AOC2019
     {
         static void Main(string[] args)
         {
-            IPuzzleSolver solver = new Day5PuzzleSolver();
+            IPuzzleSolver solver = new Day6PuzzleSolver();
 
             var solution = solver.SolvePuzzlePart1();
             Console.WriteLine($"The solution to the puzzle is: {solution}");
