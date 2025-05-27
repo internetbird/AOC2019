@@ -77,6 +77,37 @@ namespace AOC2019.Logic
                         new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10))
                     };
                     break;
+                case IntcodeCompunterCommandOpCode.JumpIfTrue:
+                    command.Parameters = new List<IntcodeComputerCommandParameter>
+                    {
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 2], (IntcodeComputerCommandParameterMode)((opCodeValue/1000) % 10))
+                    };
+                    break;
+                case IntcodeCompunterCommandOpCode.JumpIfFalse:
+                    command.Parameters = new List<IntcodeComputerCommandParameter>
+                    {
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 2], (IntcodeComputerCommandParameterMode)((opCodeValue/1000) % 10))
+                    };
+                    break;
+                case IntcodeCompunterCommandOpCode.LessThan:
+                    command.Parameters = new List<IntcodeComputerCommandParameter>
+                    {
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 2], (IntcodeComputerCommandParameterMode)((opCodeValue/1000) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 3], (IntcodeComputerCommandParameterMode)((opCodeValue/10000) % 10))
+                    };
+                    break;
+
+                case IntcodeCompunterCommandOpCode.Equals:
+                    command.Parameters = new List<IntcodeComputerCommandParameter>
+                    {
+                        new IntcodeComputerCommandParameter(_memory[_PC + 1], (IntcodeComputerCommandParameterMode)((opCodeValue/100) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 2], (IntcodeComputerCommandParameterMode)((opCodeValue/1000) % 10)),
+                        new IntcodeComputerCommandParameter(_memory[_PC + 3], (IntcodeComputerCommandParameterMode)((opCodeValue/10000) % 10))
+                    };
+                    break;
             }
 
 
@@ -113,12 +144,49 @@ namespace AOC2019.Logic
 
                     break;
                 case IntcodeCompunterCommandOpCode.Output:
-
                     param1Value = GetParamValue(command.Parameters[0]);
                     Console.WriteLine($"Output: {param1Value}");
-                  
                     _PC += 2;
                     break;
+                case IntcodeCompunterCommandOpCode.JumpIfTrue:
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    if (param1Value != 0)
+                    {
+                        _PC = GetParamValue(command.Parameters[1]);
+                    }
+                    else
+                    {
+                        _PC += 3;
+                    }
+                    break;
+                case IntcodeCompunterCommandOpCode.JumpIfFalse:
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    if (param1Value == 0)
+                    {
+                        _PC = GetParamValue(command.Parameters[1]);
+                    }
+                    else
+                    {
+                        _PC += 3;
+                    }
+                    break;
+               case IntcodeCompunterCommandOpCode.LessThan:
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    param2Value = GetParamValue(command.Parameters[1]);
+                    _memory[command.Parameters[2].Value] = (param1Value < param2Value) ? 1 : 0;
+                    _PC += 4;
+                    break;
+                case IntcodeCompunterCommandOpCode.Equals:
+                    param1Value = GetParamValue(command.Parameters[0]);
+                    param2Value = GetParamValue(command.Parameters[1]);
+                    _memory[command.Parameters[2].Value] = (param1Value == param2Value) ? 1 : 0;
+                    _PC += 4;
+                    break;
+                case IntcodeCompunterCommandOpCode.Halt:
+                    Console.WriteLine("Program halted.");
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown command: {command.OpCode}");
             }
 
         }
