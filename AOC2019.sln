@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC2019", "AOC2019.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC2019.Tests", "AOC2019.Tests\AOC2019.Tests.csproj", "{71DAF6E8-1C01-45FC-B73D-F8DF19E2416B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdLib", "..\..\..\..\Github\BirdLib\BirdLib\BirdLib.csproj", "{7817B57A-3CB4-482B-AF65-3C508BB5B818}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdLib", "..\BirdLib\BirdLib\BirdLib.csproj", "{6DC477D2-D7FA-940E-CF64-5580F2E7FD23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{71DAF6E8-1C01-45FC-B73D-F8DF19E2416B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DAF6E8-1C01-45FC-B73D-F8DF19E2416B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71DAF6E8-1C01-45FC-B73D-F8DF19E2416B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7817B57A-3CB4-482B-AF65-3C508BB5B818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7817B57A-3CB4-482B-AF65-3C508BB5B818}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7817B57A-3CB4-482B-AF65-3C508BB5B818}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7817B57A-3CB4-482B-AF65-3C508BB5B818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC477D2-D7FA-940E-CF64-5580F2E7FD23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC477D2-D7FA-940E-CF64-5580F2E7FD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC477D2-D7FA-940E-CF64-5580F2E7FD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC477D2-D7FA-940E-CF64-5580F2E7FD23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
